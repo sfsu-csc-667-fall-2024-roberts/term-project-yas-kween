@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import express from "express";
 import httpErrors from "http-errors";
@@ -12,8 +13,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(morgan("dev"));
-
 app.use(express.static(path.join(process.cwd(), "src", "public")));
+app.use(cookieParser());
+app.set("views", path.join(process.cwd(), "src", "server", "views"));
+app.set("view engine", "ejs");
 
 app.use("/", rootRoutes);
 
