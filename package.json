@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "start:dev": "nodemon --exec ts-node src/server/index.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:create": "node-pg-migrate create -j ts --",
+    "db:migrate": "ts-node node_modules/node-pg-migrate/bin/node-pg-migrate.js up -j ts",
+    "db:rollback": "ts-node node_modules/node-pg-migrate/bin/node-pg-migrate.js down -j ts"
   },
   "lint-staged": {
     "**/*": [
@@ -19,8 +22,10 @@
     "@types/cookie-parser": "^1.4.7",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
-    "@types/node": "^22.7.5",
+    "@types/node": "^22.7.9",
+    "@types/pg-promise": "^0.0.28",
     "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
     "globals": "^15.11.0",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
@@ -37,6 +42,9 @@
     "ejs": "^3.1.10",
     "express": "^5.0.1",
     "http-errors": "^2.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-pg-migrate": "^7.7.1",
+    "pg": "^8.13.1",
+    "pg-promise": "^11.10.1"
   }
 }

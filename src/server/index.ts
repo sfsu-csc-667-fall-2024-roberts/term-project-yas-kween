@@ -5,9 +5,10 @@ import httpErrors from "http-errors";
 import morgan from "morgan";
 import * as path from "path";
 
-import rootRoutes from "./routes/root";
-
 dotenv.config();
+
+import rootRoutes from "./routes/root";
+import testRoutes from "./routes/test";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app.set("views", path.join(process.cwd(), "src", "server", "views"));
 app.set("view engine", "ejs");
 
 app.use("/", rootRoutes);
+app.use("/test", testRoutes);
 
 app.use((_request, _response, next) => {
   next(httpErrors(404));
