@@ -9,7 +9,10 @@ import * as path from "path";
 
 dotenv.config();
 
-import rootRoutes from "./routes/root";
+import authRoutes from "./routes/auth";
+import gameRoutes from "./routes/games";
+import homeRoutes from "./routes/home";
+import mainLobbyRoutes from "./routes/main-lobby";
 import testRoutes from "./routes/test";
 
 const app = express();
@@ -33,7 +36,10 @@ app.use(cookieParser());
 app.set("views", path.join(process.cwd(), "src", "server", "views"));
 app.set("view engine", "ejs");
 
-app.use("/", rootRoutes);
+app.use("/", homeRoutes);
+app.use("/lobby", mainLobbyRoutes);
+app.use("/auth", authRoutes);
+app.use("/games", gameRoutes);
 app.use("/test", testRoutes);
 
 app.use((_request, _response, next) => {
