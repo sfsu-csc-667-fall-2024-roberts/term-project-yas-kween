@@ -8,6 +8,7 @@ import * as path from "path";
 dotenv.config();
 
 import * as configuration from "./config";
+import * as middleware from "./middleware";
 import * as routes from "./routes";
 
 const app = express();
@@ -21,16 +22,16 @@ const staticPath = path.join(process.cwd(), "src", "public");
 app.use(express.static(staticPath));
 
 configuration.configureLiveReload(app, staticPath);
+configuration.configureSession(app);
 
 app.use(cookieParser());
 app.set("views", path.join(process.cwd(), "src", "server", "views"));
 app.set("view engine", "ejs");
 
 app.use("/", routes.home);
-app.use("/lobby", routes.mainLobby);
+app.use("/lobby", middleware.authentication, routes.mainLobby);
 app.use("/auth", routes.auth);
-app.use("/games", routes.games);
-app.use("/test", routes.test);
+app.use("/games", middleware.authentication, routes.games);
 
 app.use((_request, _response, next) => {
   next(httpErrors(404));
