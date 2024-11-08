@@ -4,11 +4,14 @@ import webpack from "webpack";
 
 dotenv.config();
 
+const mode =
+  process.env.NODE_ENV === "production" ? "production" : "development";
+
 const config: webpack.Configuration = {
   entry: {
     main: path.join(process.cwd(), "src", "client", "main.ts"),
   },
-  mode: process.env.NODE_ENV === "production" ? "production" : "development",
+  mode,
   output: {
     path: path.join(process.cwd(), "src", "public", "js"),
     filename: "[name].js",
