@@ -20,6 +20,7 @@ const PORT = process.env.PORT || 3000;
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(middleware.tailwind);
 
 const staticPath = path.join(process.cwd(), "src", "public");
 app.use(express.static(staticPath));

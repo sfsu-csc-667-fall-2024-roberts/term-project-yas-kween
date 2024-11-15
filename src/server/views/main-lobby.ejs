@@ -1,22 +1,40 @@
 <!doctype html>
 <html lang="en">
-<%- include('partials/head') %>
+  <%- include('partials/head') %>
 
-  <body>
-    <%- include('partials/menu') %>
+  <body class="text-[12px]">
+    <div class="container mx-auto">
+      <%- include('partials/menu') %>
 
-      <section>
-        <h1>Welcome <%= user.username %>
-        </h1>
-        <p>
-          Main lobby (users will select or create games and have access to global
-          chat)
-        </p>
-        <image src="https://gravatar.com/avatar/<%= user.gravatar %>" alt="Gravater of <%= user.username %>" />
-      </section>
-      <%- include('partials/chat') %>
+      <div class="flex flex-row">
+        <section class="basis-5/6">
+          <table class="min-w-full divide-y divide-blue-200">
+            <thead>
+              <tr>
+                <th>Room name</th>
+                <th>Players</th>
+                <th>Join</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% locals.room !== undefined && rooms.forEach((room) => { %>
+                <tr>
+                  <td><%= room.name %></td>
+                  <td><%= room.players.length %></td>
+                  <td>
+                    <form action="/join/<%= room.id %>" method="post">
+                      <button class="bg-blue-200 rounded-sm px-1">Join</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </section>
+        <div class="basis-1/6"><%- include('partials/chat') %></div>
+      </div>
+    </div>
 
-        <%- include('partials/footer') %>
+    <%- include('partials/footer') %>
   </body>
-
 </html>

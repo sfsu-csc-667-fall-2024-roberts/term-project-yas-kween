@@ -1,14 +1,11 @@
 const form = document.querySelector("#chat-section form")! as HTMLFormElement;
 const input = document.querySelector("input#chat-message")! as HTMLInputElement;
+const messageArea = document.querySelector(
+  "#chat-section ul",
+)! as HTMLUListElement;
 const messageTemplate = document.querySelector(
   "#chat-message-template",
 )! as HTMLTemplateElement;
-
-input.addEventListener("keydown", (keyDownEvent) => {
-  if (keyDownEvent.key === "Enter") {
-    form.dispatchEvent(new Event("submit"));
-  }
-});
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -46,11 +43,12 @@ form.addEventListener("submit", (e) => {
         true,
       ) as HTMLElement;
       messageElement.querySelector("img")!.src =
-        `https://www.gravatar.com/avatar/${gravatar}?s=10`;
+        `https://www.gravatar.com/avatar/${gravatar}`;
       messageElement.querySelector("img")!.alt = sender;
       messageElement.querySelector("span")!.textContent = message;
 
-      document.querySelector("#chat-section ul")!.appendChild(messageElement);
+      messageArea.appendChild(messageElement);
+      messageArea.scrollTo(0, messageArea.scrollHeight);
     },
   );
 })();

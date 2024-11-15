@@ -1,31 +1,11 @@
-<nav>
-  <ul>
-    <li>
-      Home
-      <ul>
-        <li><a href="/">Home</a></li>
-      </ul>
-    </li>
-    <li>
-      Authentication
-      <ul>
-        <li><a href="/auth/login">Login</a></li>
-        <li><a href="/auth/logout">Logout</a></li>
-        <li><a href="/auth/register">Register</a></li>
-      </ul>
-    </li>
-    <li>
-      Main Lobby
-      <ul>
-        <li><a href="/lobby">Main Lobby</a></li>
-      </ul>
-    </li>
-    <li>
-      Game Pages
-      <ul>
-        <li><a href="/games/lobby">Game lobby</a></li>
-        <li><a href="/games/42">Game</a></li>
-      </ul>
-    </li>
-  </ul>
+<nav class="pt-[10px] flex flex-row justify-between mb-[20px]" %>">
+  <a href="<%= locals.user === undefined ? "/" : "/lobby" %>">
+    <img src="/images/logo.webp" alt="logo" class="w-[40px] h-[40px] rounded-[20px]"/>
+  </a>
+  <% if(locals.user !== undefined) { %>
+    <div class="flex flex-row items-center">
+      <a href="/logout">Logout</a>
+      <img src="https://gravatar.com/avatar/<%= locals.user.gravatar %>" alt="Gravatar of <%= locals.user.username %>" class="w-[40px] h-[40px] rounded-[20px] ml-[10px]"/>
+    </div>
+  <% } %>
 </nav>
