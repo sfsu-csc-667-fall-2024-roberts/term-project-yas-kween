@@ -41,8 +41,4 @@ const findByEmail = (email: string): Promise<UserWithPassword> => {
   return db.one(FIND_BY_EMAIL_SQL, [email]);
 };
 
-const findById = () => {};
-
-const findByUsername = () => {};
-
-export default { register, login, findByEmail, findById, findByUsername };
+export default { register, login, findByEmail };
