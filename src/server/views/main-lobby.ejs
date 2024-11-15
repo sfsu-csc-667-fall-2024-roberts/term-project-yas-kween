@@ -1,19 +1,22 @@
 <!doctype html>
 <html lang="en">
-  <%- include('partials/head') %>
+<%- include('partials/head') %>
+
   <body>
     <%- include('partials/menu') %>
 
-    <section>
-      <h1>Welcome <%= user.username %></h1>
-      <p>
-        Main lobby (users will select or create games and have access to global
-        chat)
-      </p>
-      <image
-        src="https://gravatar.com/avatar/<%= user.gravatar %>"
-        alt="Gravater of <%= user.username %>"
-      />
-    </section>
+      <section>
+        <h1>Welcome <%= user.username %>
+        </h1>
+        <p>
+          Main lobby (users will select or create games and have access to global
+          chat)
+        </p>
+        <image src="https://gravatar.com/avatar/<%= user.gravatar %>" alt="Gravater of <%= user.username %>" />
+      </section>
+      <%- include('partials/chat') %>
+
+        <%- include('partials/footer') %>
   </body>
+
 </html>
