@@ -11,6 +11,7 @@ const config: webpack.Configuration = {
   entry: {
     main: path.join(process.cwd(), "src", "client", "main.ts"),
     chat: path.join(process.cwd(), "src", "client", "chat.ts"),
+    "main-lobby": path.join(process.cwd(), "src", "client", "main-lobby.ts"),
   },
   mode,
   output: {

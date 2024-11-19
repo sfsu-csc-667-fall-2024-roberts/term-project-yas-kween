@@ -9,7 +9,9 @@
       <div class="flex flex-row">
         <section class="basis-4/6 mr-[20px]">
           <div class="flex flex-row-reverse mb-[20px]">
-            <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Create a new game room</button>
+            <form method="post" action="/games/create">
+              <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Create a new game room</button>
+            </form>
           </div>
           <table class="min-w-full">
             <thead>
@@ -19,47 +21,13 @@
                 <th class="text-center border-b-[1px] border-gray-400 py-[4px]">Join</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="border-b-[1px] border-gray-400 py-[4px]">Name One</td>
-                <td class="border-b-[1px] border-gray-400 py-[4px]">
-                  <div class="flex flex-row">
-                    <div class="p-0 inline-block w-[16px] h-[16px] rounded-[8px] border-[1px] border-gray-600 border-dashed text-center mr-[4px]">
-                      ?
-                    </div>
-                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px] mr-[4px]" />
-                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px] mr-[4px]" />
-                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px]" />
-                  </div>
-                </td>
-                <td class="text-center border-b-[1px] border-gray-400 py-[4px]">
-                  <form action="/join/1" method="post">
-                    <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Join</button>
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <td class="border-b-[1px] border-gray-400 py-[4px]">Name Two</td>
-                <td class="border-b-[1px] border-gray-400 py-[4px]">
-                  <div class="flex flex-row">
-                    <div class="p-0 inline-block w-[16px] h-[16px] rounded-[8px] border-[1px] border-gray-600 border-dashed text-center mr-[4px]">
-                      ?
-                    </div>
-                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px]" />
-                  </div>
-                </td>
-                <td class="text-center border-b-[1px] border-gray-400 py-[4px]">
-                  <form action="/join/2" method="post">
-                    <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Join</button>
-                  </form>
-                </td>
-              </tr>
-              <% locals.room !== undefined && rooms.forEach((room) => { %>
-                <tr>
-                  <td class="border-b-[1px] border-gray-400 py-[4px]"><%= room.name %></td>
-                  <td class="border-b-[1px] border-gray-400 py-[4px]"><%= room.players.length %></td>
+            <tbody id="available-games-list">
+              <% locals.availableGames !== undefined && availableGames.forEach((room) => { %>
+                <tr id="game-row-<%= room.id %>">
+                  <td class="border-b-[1px] border-gray-400 py-[4px]">Game <%= room.id %></td>
+                  <td class="border-b-[1px] border-gray-400 py-[4px]"><%= room.players %> / <%= room.player_count %></td>
                   <td class="text-center border-b-[1px] border-gray-400 py-[4px]">
-                    <form action="/join/<%= room.id %>" method="post">
+                    <form action="/games/join/<%= room.id %>" method="post">
                       <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Join</button>
                     </form>
                   </td>
@@ -72,6 +40,30 @@
       </div>
     </div>
 
+    <template id="game-row-template">
+      <tr>
+        <td class="border-b-[1px] border-gray-400 py-[4px]"></td>
+        <td class="border-b-[1px] border-gray-400 py-[4px]"></td>
+        <td class="text-center border-b-[1px] border-gray-400 py-[4px]">
+          <form action="/join/X" method="post">
+            <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Join</button>
+          </form>
+        </td>
+      </tr>
+    </template>
+
     <%- include('partials/footer') %>
+    <script src="/js/main-lobby.js"></script>
   </body>
+
+                  <!-- <td class="border-b-[1px] border-gray-400 py-[4px]">
+                  <div class="flex flex-row">
+                    <div class="p-0 inline-block w-[16px] h-[16px] rounded-[8px] border-[1px] border-gray-600 border-dashed text-center mr-[4px]">
+                      ?
+                    </div>
+                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px] mr-[4px]" />
+                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px] mr-[4px]" />
+                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px]" />
+                  </div>
+                </td> -->
 </html>
