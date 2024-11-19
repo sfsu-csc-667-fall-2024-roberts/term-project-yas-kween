@@ -7,23 +7,60 @@
       <%- include('partials/menu') %>
 
       <div class="flex flex-row">
-        <section class="basis-5/6">
-          <table class="min-w-full divide-y divide-blue-200">
+        <section class="basis-4/6 mr-[20px]">
+          <div class="flex flex-row-reverse mb-[20px]">
+            <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Create a new game room</button>
+          </div>
+          <table class="min-w-full">
             <thead>
               <tr>
-                <th>Room name</th>
-                <th>Players</th>
-                <th>Join</th>
+                <th class="text-left border-b-[1px] border-gray-400 py-[4px]">Room name</th>
+                <th class="text-left border-b-[1px] border-gray-400 py-[4px]">Players</th>
+                <th class="text-center border-b-[1px] border-gray-400 py-[4px]">Join</th>
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td class="border-b-[1px] border-gray-400 py-[4px]">Name One</td>
+                <td class="border-b-[1px] border-gray-400 py-[4px]">
+                  <div class="flex flex-row">
+                    <div class="p-0 inline-block w-[16px] h-[16px] rounded-[8px] border-[1px] border-gray-600 border-dashed text-center mr-[4px]">
+                      ?
+                    </div>
+                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px] mr-[4px]" />
+                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px] mr-[4px]" />
+                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px]" />
+                  </div>
+                </td>
+                <td class="text-center border-b-[1px] border-gray-400 py-[4px]">
+                  <form action="/join/1" method="post">
+                    <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Join</button>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="border-b-[1px] border-gray-400 py-[4px]">Name Two</td>
+                <td class="border-b-[1px] border-gray-400 py-[4px]">
+                  <div class="flex flex-row">
+                    <div class="p-0 inline-block w-[16px] h-[16px] rounded-[8px] border-[1px] border-gray-600 border-dashed text-center mr-[4px]">
+                      ?
+                    </div>
+                    <img src="https://www.gravatar.com/avatar/unknown" class="inline-block border-[1px] border-gray-600 w-[16px] rounded-[8px]" />
+                  </div>
+                </td>
+                <td class="text-center border-b-[1px] border-gray-400 py-[4px]">
+                  <form action="/join/2" method="post">
+                    <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Join</button>
+                  </form>
+                </td>
+              </tr>
               <% locals.room !== undefined && rooms.forEach((room) => { %>
                 <tr>
-                  <td><%= room.name %></td>
-                  <td><%= room.players.length %></td>
-                  <td>
+                  <td class="border-b-[1px] border-gray-400 py-[4px]"><%= room.name %></td>
+                  <td class="border-b-[1px] border-gray-400 py-[4px]"><%= room.players.length %></td>
+                  <td class="text-center border-b-[1px] border-gray-400 py-[4px]">
                     <form action="/join/<%= room.id %>" method="post">
-                      <button class="bg-blue-200 rounded-sm px-1">Join</button>
+                      <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Join</button>
                     </form>
                   </td>
                 </tr>
@@ -31,7 +68,7 @@
             </tbody>
           </table>
         </section>
-        <div class="basis-1/6"><%- include('partials/chat') %></div>
+        <div class="basis-2/6"><%- include('partials/chat') %></div>
       </div>
     </div>
 

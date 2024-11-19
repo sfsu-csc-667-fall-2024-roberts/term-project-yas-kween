@@ -1,11 +1,110 @@
 <!doctype html>
 <html lang="en">
   <%- include ('../partials/head') %>
-  <body>
-    <%- include('../partials/menu') %>
+  <body class="text-[12px]">
+    <div class="container mx-auto">
+      <%- include('../partials/menu') %>
 
-    <section>
-      <p>Games page for game <%= id %></p>
-    </section>
+      <div class="flex flex-row">
+        <section class="basis-4/6 mr-[20px]">
+          <div class="flex flex-row">
+            <div class="hand"><div class="card back"></div></div>
+            <div class="card value-1"><span>1</span></div>
+            <div class="card value-2"><span>2</span></div>
+            <div class="card value-3"><span>3</span></div>
+            <div class="card value-4"><span>4</span></div>
+          </div>
+          <div class="flex flex-row">
+            <!-- Start Player Template -->
+            <div class="w-[50%] px-[10px] mt-[10px]">
+              <h4 class="flex flex-row justify-start items-center">
+                <img
+                  src="https://gravatar.com/avatar/f03deabb0378ab2658e86c4c7fbfd369fd7993429790709c05738483d482ce4e"
+                  alt="Gravatar of jrob"
+                  class="w-[20px] h-[20px] rounded-[10px] mx-[10px]"
+                />
+                <span>Player A</span>
+              </h4>
+              <div class="flex flex-row">
+                <div class="hand">
+                  <div class="card back scale-75"></div>
+                </div>
+                <div class="card blank scale-75"></div>
+                <div class="card blank scale-75"></div>
+                <div class="card blank scale-75"></div>
+                <div class="card blank scale-75"></div>
+              </div>
+            </div>
+            <!-- End Player Template -->
+            <!-- Start Player Template -->
+            <div class="w-[50%] px-[10px] mt-[10px]">
+              <h4 class="flex flex-row justify-start items-center">
+                <img
+                  src="https://gravatar.com/avatar/f03deabb0378ab2658e86c4c7fbfd369fd7993429790709c05738483d482ce4e"
+                  alt="Gravatar of jrob"
+                  class="w-[20px] h-[20px] rounded-[10px] mx-[10px]"
+                />
+                <span>Player B</span>
+              </h4>
+              <div class="flex flex-row">
+                <div class="hand">
+                  <div class="card back scale-75"></div>
+                </div>
+                <div class="card wild scale-75"><span>Skip-Bo</span></div>
+                <div class="card blank scale-75"></div>
+                <div class="card blank scale-75"></div>
+                <div class="card blank scale-75"></div>
+              </div>
+            </div>
+            <!-- End Player Template -->
+          </div>
+          <div class="flex flex-row">
+            <!-- Start Player Template -->
+            <div class="w-[50%] px-[10px] mt-[10px]">
+              <h4 class="flex flex-row justify-start items-center">
+                <img
+                  src="https://gravatar.com/avatar/f03deabb0378ab2658e86c4c7fbfd369fd7993429790709c05738483d482ce4e"
+                  alt="Gravatar of jrob"
+                  class="w-[20px] h-[20px] rounded-[10px] mx-[10px]"
+                />
+                <span>Player C</span>
+              </h4>
+              <div class="flex flex-row">
+                <div class="hand">
+                  <div class="card back scale-75"></div>
+                </div>
+                <div class="card value-5 scale-75"><span>5</span></div>
+                <div class="card value-6 scale-75"><span>6</span></div>
+                <div class="card value-7 scale-75"><span>7</span></div>
+                <div class="card value-8 scale-75"><span>8</span></div>
+              </div>
+            </div>
+            <!-- End Player Template -->
+            <!-- Start Player Template -->
+            <div class="w-[50%] px-[10px] mt-[10px]">
+              <h4 class="flex flex-row justify-start items-center">
+                <img
+                  src="https://gravatar.com/avatar/f03deabb0378ab2658e86c4c7fbfd369fd7993429790709c05738483d482ce4e"
+                  alt="Gravatar of jrob"
+                  class="w-[20px] h-[20px] rounded-[10px] mx-[10px]"
+                />
+                <span>Player D</span>
+              </h4>
+              <div class="flex flex-row">
+                <div class="hand">
+                  <div class="card back scale-75"></div>
+                </div>
+                <div class="card value-9 scale-75"><span>9</span></div>
+                <div class="card value-10 scale-75"><span>10</span></div>
+                <div class="card value-11 scale-75"><span>11</span></div>
+                <div class="card value-12 scale-75"><span>12</span></div>
+              </div>
+            </div>
+            <!-- End Player Template -->
+          </div>
+        </section>
+        <div class="basis-2/6"><%- include('../partials/chat') %></div>
+      </div>
+    </div>
   </body>
 </html>
