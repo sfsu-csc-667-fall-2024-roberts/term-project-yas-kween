@@ -1,11 +1,10 @@
-const form = document.querySelector("#chat-section form")! as HTMLFormElement;
-const input = document.querySelector("input#chat-message")! as HTMLInputElement;
-const messageArea = document.querySelector(
-  "#chat-section ul",
-)! as HTMLUListElement;
-const messageTemplate = document.querySelector(
+const form = document.querySelector<HTMLFormElement>("#chat-section form")!;
+const input = document.querySelector<HTMLInputElement>("input#chat-message")!;
+const messageArea =
+  document.querySelector<HTMLUListElement>("#chat-section ul")!;
+const messageTemplate = document.querySelector<HTMLTemplateElement>(
   "#chat-message-template",
-)! as HTMLTemplateElement;
+)!;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -26,7 +25,6 @@ form.addEventListener("submit", (e) => {
 
 // IIFE
 (() => {
-  // @ts-expect-error TODO: Define the socket object on window for TS
   window.socket.on(
     "message:0",
     ({
