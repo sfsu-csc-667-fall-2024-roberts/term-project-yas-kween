@@ -8,13 +8,12 @@ const bindSession = async (socket: Socket) => {
   const { request } = socket;
 
   const {
-    id: sessionId,
+    user: { id: userId },
     roomId,
     // @ts-expect-error TODO figure out the typing for session on request
   } = request.session;
 
-  socket.join(sessionId);
-
+  socket.join(`game-${roomId}-user-${userId}`);
   socket.join(`chat-${roomId}`);
   socket.join(`game-${roomId}`);
 
