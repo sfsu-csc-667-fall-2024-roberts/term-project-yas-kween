@@ -9,7 +9,7 @@ router.post("/:roomId", (request, response) => {
   // @ts-expect-error TODO: Define the session type for the user object
   const { email, gravatar } = request.session.user;
 
-  request.app.get("io").emit(`message:${roomId}`, {
+  request.app.get("io").to(`game-${roomId}`).emit(`message:${roomId}`, {
     message,
     gravatar,
     sender: email,

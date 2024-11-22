@@ -1,21 +1,22 @@
 import { Server } from "http";
 import type { Express, RequestHandler } from "express";
 import { Server as SocketIoServer, Socket } from "socket.io";
-import { Games } from "../db";
 
 let io: SocketIoServer | undefined;
 
 const bindSession = async (socket: Socket) => {
   const { request } = socket;
 
-  // @ts-expect-error TODO figure out the typing for session on request
-  socket.join(request.session.id);
+  const {
+    id: sessionId,
+    roomId,
+    // @ts-expect-error TODO figure out the typing for session on request
+  } = request.session;
 
-  // @ts-expect-error TODO figure out the typing for session on request
-  const userGames = await Games.getUserGameRooms(request.session.user.id);
-  userGames.forEach(({ game_id }) => {
-    socket.join(`game-${game_id}`);
-  });
+  socket.join(sessionId);
+
+  socket.join(`chat-${roomId}`);
+  socket.join(`game-${roomId}`);
 
   socket.use((_, next) => {
     // @ts-expect-error TODO figure out the typing for session on request

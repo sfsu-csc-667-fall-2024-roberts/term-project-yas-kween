@@ -10,11 +10,7 @@
     id="messages"
     class="rounded-md border-[1px] border-gray-300 w-full grow p-[4px] overflow-y-auto"
   ></ul>
-  <form
-    action="/chat/<%= roomId %>"
-    method="post"
-    class="flex flex-row h-[20px] mt-[8px]"
-  >
+  <form method="post" class="flex flex-row h-[20px] mt-[8px]">
     <input
       id="chat-message"
       autocomplete="off"
@@ -25,3 +21,4 @@
     </button>
   </form>
 </aside>
+<script src="/js/chat.js"></script>

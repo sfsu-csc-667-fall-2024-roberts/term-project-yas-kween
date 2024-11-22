@@ -12,7 +12,7 @@ form.addEventListener("submit", (e) => {
   const message = input.value;
   input.value = "";
 
-  fetch(form.action, {
+  fetch(`/chat/${window.roomId}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message }),
@@ -23,30 +23,27 @@ form.addEventListener("submit", (e) => {
   });
 });
 
-// IIFE
-(() => {
-  window.socket.on(
-    "message:0",
-    ({
-      message,
-      sender,
-      gravatar,
-    }: {
-      message: string;
-      sender: string;
-      timestamp: string;
-      gravatar: string;
-    }) => {
-      const messageElement = messageTemplate.content.cloneNode(
-        true,
-      ) as HTMLElement;
-      messageElement.querySelector("img")!.src =
-        `https://www.gravatar.com/avatar/${gravatar}`;
-      messageElement.querySelector("img")!.alt = sender;
-      messageElement.querySelector("span")!.textContent = message;
+window.socket.on(
+  `message:${window.roomId}`,
+  ({
+    message,
+    sender,
+    gravatar,
+  }: {
+    message: string;
+    sender: string;
+    timestamp: string;
+    gravatar: string;
+  }) => {
+    const messageElement = messageTemplate.content.cloneNode(
+      true,
+    ) as HTMLElement;
+    messageElement.querySelector("img")!.src =
+      `https://www.gravatar.com/avatar/${gravatar}`;
+    messageElement.querySelector("img")!.alt = sender;
+    messageElement.querySelector("span")!.textContent = message;
 
-      messageArea.appendChild(messageElement);
-      messageArea.scrollTo(0, messageArea.scrollHeight);
-    },
-  );
-})();
+    messageArea.appendChild(messageElement);
+    messageArea.scrollTo(0, messageArea.scrollHeight);
+  },
+);
