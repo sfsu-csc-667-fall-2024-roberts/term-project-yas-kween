@@ -3,6 +3,18 @@ import { Games } from "../db";
 
 const router = express.Router();
 
+router.post("/do-a-thing/:gameId", (request, response) => {
+  const { gameId } = request.params;
+
+  // Do a thing
+  response.send(`Did a thing for game ${gameId}`);
+
+  request.app
+    .get("io")
+    .to(`game-${gameId}`)
+    .emit("thing", { thing: "thing", ts: Date.now() });
+});
+
 router.post("/create", async (request, response) => {
   // @ts-expect-error TODO update session to include user id
   const { id: user_id } = request.session.user;

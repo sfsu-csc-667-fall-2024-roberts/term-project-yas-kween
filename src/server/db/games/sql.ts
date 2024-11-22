@@ -19,3 +19,7 @@ FROM games WHERE id IN
 LIMIT $1
 OFFSET $2
 `;
+
+export const GET_USER_GAMES = `
+  SELECT game_id FROM game_users WHERE user_id = $1
+`;
