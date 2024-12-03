@@ -16,10 +16,9 @@ router.post("/do-a-thing/:gameId", (request, response) => {
 });
 
 router.post("/create", async (request, response) => {
-  // @ts-expect-error TODO update session to include user id
-  const { id: user_id } = request.session.user;
+  const { id: user_id } = request.session.user ?? {};
 
-  const game = await Games.create(user_id);
+  const game = await Games.create(user_id!);
 
   request.app.get("io").emit("game-created", game);
 
@@ -27,12 +26,12 @@ router.post("/create", async (request, response) => {
 });
 
 router.post("/join/:gameId", async (request, response) => {
-  // @ts-expect-error TODO update session to include user id
-  const { id: user_id, username, email, gravatar } = request.session.user;
+  const { id: user_id, username, email, gravatar } = request.session.user!;
   const { gameId } = request.params;
 
   // Validate:
   // - Check to make sure user is not already in this game
+
   // - Check to make sure game is not full
   const { count } = await Games.getPlayerCount(parseInt(gameId, 10));
 
