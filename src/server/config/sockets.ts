@@ -13,11 +13,7 @@ const bindSession = async (socket: Socket) => {
     // @ts-expect-error TODO figure out the typing for session on request
   } = request.session;
 
-  if (!userId || !roomId) {
-    socket.disconnect();
-    return;
-  }
-
+  // TODO there's a bug here; if the user has created a game, the game id is not yet parsed from the url parameters
   socket.join(`game-${roomId}-user-${userId}`);
   socket.join(`chat-${roomId}`);
   socket.join(`game-${roomId}`);

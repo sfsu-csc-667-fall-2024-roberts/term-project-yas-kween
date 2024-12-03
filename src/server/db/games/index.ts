@@ -31,7 +31,16 @@ const join = async (playerId: number, gameId: number) => {
   return await db.one<GameDescription>(ADD_PLAYER, [gameId, playerId]);
 };
 
-const availableGames = async (limit: number = 20, offset: number = 0) => {
+const availableGames = async (
+  limit: number = 20,
+  offset: number = 0,
+): Promise<
+  {
+    id: number;
+    players: number;
+    currentPlayerIsMember?: boolean;
+  }[]
+> => {
   return db.any(AVAILABLE_GAMES, [limit, offset]);
 };
 
@@ -60,6 +69,14 @@ const playCard = async () =>
   // pile: number
   {};
 
+const playerGames = async (
+  playerId: number,
+): Promise<Record<number, boolean>> => {
+  return (
+    await db.any("SELECT game_id FROM game_users WHERE user_id=$1", playerId)
+  ).reduce((memo, game) => ({ ...memo, [game.game_id]: true }), {});
+};
+
 export default {
   create,
   join,
@@ -67,4 +84,5 @@ export default {
   getPlayerCount,
   drawCard,
   playCard,
+  playerGames,
 };

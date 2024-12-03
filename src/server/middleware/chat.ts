@@ -6,7 +6,7 @@ const chatMiddleware = (
   next: NextFunction,
 ) => {
   const gameIdMatch = request.headers.referer?.match(/\/games\/(\d+)/);
-  const gameId = gameIdMatch ? gameIdMatch[1] : 0;
+  const gameId = parseInt(gameIdMatch ? gameIdMatch[1] : "0");
 
   // @ts-expect-error TODO figure out the typing for session on request
   request.session.roomId = gameId;

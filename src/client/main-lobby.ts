@@ -14,7 +14,7 @@ window.socket.on("game-created", (game) => {
   row.querySelector("td:nth-child(2)")!.textContent =
     `${game.players} / ${game.player_count}`;
   row.querySelector<HTMLFormElement>("td:nth-child(3) form")!.action =
-    `/game/${game.id}`;
+    `/games/${game.id}`;
 
   list.appendChild(row);
 });
