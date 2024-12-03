@@ -1,6 +1,5 @@
 // TODO jrob fix this plox
 window.socket.on("game-starting", () => {
-  console.log("Game starting!");
   window.location.href = `/games/${window.roomId}`;
 });
 

@@ -13,10 +13,12 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
       type: "integer",
       notNull: true,
     },
+    // 0 if in main draw pile, -1 in play piles, user_id
     user_id: {
       type: "integer",
       notNull: true,
     },
+    // position in user's hand
     position: {
       type: "uuid",
       notNull: true,

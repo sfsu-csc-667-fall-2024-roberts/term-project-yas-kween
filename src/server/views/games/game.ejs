@@ -5,112 +5,54 @@
     <div class="container mx-auto">
       <%- include('../partials/menu') %>
 
-      <div>
-        <form id="blarg" action="/games/do-a-thing/<%= gameId %>" method="post">
-          <button
-            class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800"
-          >
-            Do a thing
-          </button>
-        </form>
-      </div>
-
       <div class="flex flex-row">
         <section class="basis-4/6 mr-[20px]">
-          <div class="flex flex-row">
-            <div class="hand"><div class="card back"></div></div>
-            <div class="card value-1" id="card-blarg"><span>1</span></div>
-            <div class="card value-2"><span>2</span></div>
-            <div class="card value-3"><span>3</span></div>
-            <div class="card value-4"><span>4</span></div>
+          <div class="grid grid-cols-3 grid-rows-3">
+            <div class="col-span-3 pb-[10px]">
+              <div class="card blank mx-auto" id="play-pile-n">N</div>
+            </div>
+            <div class="col-span-1 mx-auto"><div class="card blank" id="play-pile-w">W</div></div>
+            <div class="col-span-1 mx-auto"><div class="card back" id="draw-pile" data-game-id="<%= gameId %>"></div></div>
+            <div class="col-span-1 mx-auto"><div class="card blank" id="play-pile-e">E</div></div>
+            <div class="col-span-3 pt-[10px]">
+              <div class="card blank mx-auto" id="play-pile-s">S</div>
+            </div>
           </div>
-          <div class="flex flex-row">
-            <!-- Start Player Template -->
-            <div class="w-[50%] px-[10px] mt-[10px]">
-              <h4 class="flex flex-row justify-start items-center">
-                <img
-                  src="https://gravatar.com/avatar/f03deabb0378ab2658e86c4c7fbfd369fd7993429790709c05738483d482ce4e"
-                  alt="Gravatar of jrob"
-                  class="w-[20px] h-[20px] rounded-[10px] mx-[10px]"
-                />
-                <span>Player A</span>
-              </h4>
-              <div class="flex flex-row">
-                <div class="hand">
-                  <div class="card back scale-75"></div>
+          <div class="flex flex-row" id="player-listing">
+            <% for (let i = 0; i < game.players.length; i++) { 
+              const { username, gravatar, play_pile_top, pile_1, pile_2, pile_3, pile_4, is_player_turn } = game.players[i];
+            %>
+              <div class="w-[50%] px-[10px] mt-[10px]">
+                <h4 class="flex flex-row justify-start items-center">
+                  <img class="w-[20px] h-[20px] rounded-[10px] mx-[10px]" 
+                    src="https://gravatar.com/avatar/<%= gravatar %>"
+                   alt="Gravatar for <%= username %>" />
+                  <span><%= username %></span>
+                  <% if(is_player_turn) { %>
+                    <span class="ml-[10px] text-[12px] text-green-500">Your Turn</span>
+                  <% } %>
+                </h4>
+                <div class="flex flex-row">
+                  <div class="hand flex flex-row">
+                    <div class="card value-<%= play_pile_top %> mr-[5px]"><span><%= play_pile_top %></span></div>
+                    <% if(pile_1.length === 0) { %>
+                      <div class="card blank mr-[5px]"></div>
+                    <% } else { 
+                      for(let j = 0; j < pile_1.length; j++) { %>
+                        <div class="card value-<%= pile_1[j] %> mr-[5px]"><span><%= pile_1[j] %></span></div>
+                    <% }} %>
+                  </div>
                 </div>
-                <div class="card blank scale-75"></div>
-                <div class="card blank scale-75"></div>
-                <div class="card blank scale-75"></div>
-                <div class="card blank scale-75"></div>
               </div>
-            </div>
-            <!-- End Player Template -->
-            <!-- Start Player Template -->
-            <div class="w-[50%] px-[10px] mt-[10px]">
-              <h4 class="flex flex-row justify-start items-center">
-                <img
-                  src="https://gravatar.com/avatar/f03deabb0378ab2658e86c4c7fbfd369fd7993429790709c05738483d482ce4e"
-                  alt="Gravatar of jrob"
-                  class="w-[20px] h-[20px] rounded-[10px] mx-[10px]"
-                />
-                <span>Player B</span>
-              </h4>
-              <div class="flex flex-row">
-                <div class="hand">
-                  <div class="card back scale-75"></div>
-                </div>
-                <div class="card wild scale-75"><span>Skip-Bo</span></div>
-                <div class="card blank scale-75"></div>
-                <div class="card blank scale-75"></div>
-                <div class="card blank scale-75"></div>
-              </div>
-            </div>
-            <!-- End Player Template -->
+            <% } %>
+
           </div>
-          <div class="flex flex-row">
-            <!-- Start Player Template -->
-            <div class="w-[50%] px-[10px] mt-[10px]">
-              <h4 class="flex flex-row justify-start items-center">
-                <img
-                  src="https://gravatar.com/avatar/f03deabb0378ab2658e86c4c7fbfd369fd7993429790709c05738483d482ce4e"
-                  alt="Gravatar of jrob"
-                  class="w-[20px] h-[20px] rounded-[10px] mx-[10px]"
-                />
-                <span>Player C</span>
-              </h4>
-              <div class="flex flex-row">
-                <div class="hand">
-                  <div class="card back scale-75"></div>
-                </div>
-                <div class="card value-5 scale-75"><span>5</span></div>
-                <div class="card value-6 scale-75"><span>6</span></div>
-                <div class="card value-7 scale-75"><span>7</span></div>
-                <div class="card value-8 scale-75"><span>8</span></div>
+          <div class="flex flex-row hand">
+            <% for (let i = 0; i < game.playerHand.length; i++) { %>
+              <div class="card value-<%= game.playerHand[i].value %>">
+                <span><%= game.playerHand[i].value %></span>
               </div>
-            </div>
-            <!-- End Player Template -->
-            <!-- Start Player Template -->
-            <div class="w-[50%] px-[10px] mt-[10px]">
-              <h4 class="flex flex-row justify-start items-center">
-                <img
-                  src="https://gravatar.com/avatar/f03deabb0378ab2658e86c4c7fbfd369fd7993429790709c05738483d482ce4e"
-                  alt="Gravatar of jrob"
-                  class="w-[20px] h-[20px] rounded-[10px] mx-[10px]"
-                />
-                <span>Player D</span>
-              </h4>
-              <div class="flex flex-row">
-                <div class="hand">
-                  <div class="card back scale-75"></div>
-                </div>
-                <div class="card value-9 scale-75"><span>9</span></div>
-                <div class="card value-10 scale-75"><span>10</span></div>
-                <div class="card value-11 scale-75"><span>11</span></div>
-                <div class="card value-12 scale-75"><span>12</span></div>
-              </div>
-            </div>
-            <!-- End Player Template -->
+            <% } %>
           </div>
         </section>
 
@@ -121,3 +63,5 @@
     </div>
   </body>
 </html>
+
+

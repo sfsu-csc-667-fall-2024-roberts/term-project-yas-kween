@@ -1,11 +1,7 @@
-// window.socket.on("thing", console.log);
-
 document
-  .querySelector<HTMLFormElement>("#blarg")!
-  .addEventListener("submit", (event) => {
-    event.preventDefault();
+  .querySelector<HTMLFormElement>("#draw-pile")!
+  .addEventListener("click", (event) => {
+    const gameId = (event.target as HTMLDivElement).dataset.gameId;
 
-    const form = event.target as HTMLFormElement;
-
-    fetch(form.action, { method: "post" });
+    fetch(`/games/${gameId}/draw`, { method: "POST" });
   });

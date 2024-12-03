@@ -16,6 +16,7 @@ router.post("/do-a-thing/:gameId", (request, response) => {
 });
 
 router.post("/create", async (request, response) => {
+  // TODO in client code, disconnect socket prior to submitting creation form
   // @ts-expect-error TODO: Define the session type for the user object
   const { id: user_id } = request.session.user;
 
@@ -37,7 +38,7 @@ router.post("/join/:gameId", async (request, response) => {
 
   const playerCount = parseInt(count, 10);
 
-  if (playerCount === 4) {
+  if (playerCount === 2) {
     response.redirect("/lobby");
     return;
   }
@@ -45,7 +46,7 @@ router.post("/join/:gameId", async (request, response) => {
   const game = await Games.join(user_id, parseInt(gameId, 10));
 
   // TODO jrob wtf; clients not receiving game-starting message
-  if (playerCount === 3) {
+  if (playerCount === 1) {
     response.redirect(`/games/${gameId}`);
     request.app.get("io").to(`game-${gameId}`).emit("game-starting", game);
   } else {
@@ -57,10 +58,43 @@ router.post("/join/:gameId", async (request, response) => {
   }
 });
 
-router.get("/:gameId", (request, response) => {
+router.get("/:gameId", async (request, response) => {
   const { gameId } = request.params;
+  // @ts-expect-error TODO: Define the session type for the user object
+  const { id: userId } = request.session.user;
 
-  response.render("games/game", { title: `Game ${gameId}`, gameId });
+  const game = await Games.get(parseInt(gameId, 10), userId);
+  console.log(game);
+
+  response.render("games/game", {
+    title: `Game ${gameId}`,
+    gameId,
+    game,
+    userId,
+  });
+});
+
+router.post("/:gameId/draw", async (request, response) => {
+  // Make sure its the player's turn
+  const { gameId } = request.params;
+  // @ts-expect-error TODO: Define the session type for the user object
+  const { id: userId } = request.session.user;
+
+  // Make sure the player is in this game
+  const isCurrentPlayer = await Games.isCurrentPlayer(
+    parseInt(gameId, 10),
+    userId,
+  );
+
+  if (!isCurrentPlayer) {
+    return;
+  } else {
+    // TODO: Make sure the player has not drawn a card this turn
+    await Games.drawCard(userId, parseInt(gameId, 10));
+    // Emit update message
+  }
+
+  response.json({});
 });
 
 router.get("/:gameId/lobby", (request, response) => {
