@@ -5,8 +5,6 @@ const rowTemplate =
   document.querySelector<HTMLTemplateElement>("#game-row-template")!;
 
 window.socket.on("game-created", (game) => {
-  console.log("Game created", game);
-
   const row = rowTemplate.content.cloneNode(true) as HTMLTableRowElement;
   row.querySelector("tr")!.id = `game-row-${game.id}`;
 
