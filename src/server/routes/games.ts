@@ -24,7 +24,7 @@ router.post("/create", async (request, response) => {
 
   request.app.get("io").emit("game-created", game);
 
-  response.redirect(`/games/${game.id}/lobby`);
+  response.redirect(`/games/${game.id}`);
 });
 
 router.post("/join/:gameId", async (request, response) => {
