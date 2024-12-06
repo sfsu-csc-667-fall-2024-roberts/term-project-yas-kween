@@ -41,7 +41,13 @@ window.socket.on(
     messageElement.querySelector("img")!.src =
       `https://www.gravatar.com/avatar/${gravatar}`;
     messageElement.querySelector("img")!.alt = sender;
-    messageElement.querySelector("span")!.textContent = message;
+
+    const span = messageElement.querySelector("span")!;
+    span.textContent = message;
+
+    if (sender === "system") {
+      span.classList.add("text-red-500");
+    }
 
     messageArea.appendChild(messageElement);
     messageArea.scrollTo(0, messageArea.scrollHeight);

@@ -10,8 +10,8 @@
   @apply text-[24px];
 }
 
-.card.wild > span {
-  @apply text-[12px];
+.card.value-0 > span {
+  @apply text-[8px];
 }
 
 .card.back {
@@ -39,7 +39,7 @@
 .card.value-12 {
   @apply bg-red-700;
 }
-.card.wild {
+.card.value-0 {
   @apply bg-orange-400;
 }
 
@@ -102,4 +102,12 @@
 
 .card::after {
   @apply absolute bottom-[0px] right-[2px] text-[10px] rotate-180;
+}
+
+#opponent-area > div {
+  @apply scale-50;
+}
+
+.current-player {
+  @apply bg-blue-300/45;
 }

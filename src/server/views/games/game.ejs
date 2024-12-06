@@ -7,55 +7,29 @@
 
       <div class="flex flex-row">
         <section class="basis-4/6 mr-[20px]">
-          <div class="grid grid-cols-3 grid-rows-3">
-            <div class="col-span-3 pb-[10px]">
-              <div class="card blank mx-auto" id="play-pile-n">N</div>
-            </div>
-            <div class="col-span-1 mx-auto"><div class="card blank" id="play-pile-w">W</div></div>
-            <div class="col-span-1 mx-auto"><div class="card back" id="draw-pile" data-game-id="<%= gameId %>"></div></div>
-            <div class="col-span-1 mx-auto"><div class="card blank" id="play-pile-e">E</div></div>
-            <div class="col-span-3 pt-[10px]">
-              <div class="card blank mx-auto" id="play-pile-s">S</div>
-            </div>
-          </div>
-          <div class="flex flex-row" id="player-listing">
-            <% for (let i = 0; i < game.players.length; i++) { 
-              const { username, gravatar, play_pile_top, pile_1, pile_2, pile_3, pile_4, is_player_turn } = game.players[i];
-            %>
-              <div class="w-[50%] px-[10px] mt-[10px]">
-                <h4 class="flex flex-row justify-start items-center">
-                  <img class="w-[20px] h-[20px] rounded-[10px] mx-[10px]" 
-                    src="https://gravatar.com/avatar/<%= gravatar %>"
-                   alt="Gravatar for <%= username %>" />
-                  <span><%= username %></span>
-                  <% if(is_player_turn) { %>
-                    <span class="ml-[10px] text-[12px] text-green-500">Your Turn</span>
-                  <% } %>
-                </h4>
-                <div class="flex flex-row">
-                  <div class="hand flex flex-row">
-                    <div class="card value-<%= play_pile_top %> mr-[5px]"><span><%= play_pile_top %></span></div>
-                    <% if(pile_1.length === 0) { %>
-                      <div class="card blank mr-[5px]"></div>
-                    <% } else { 
-                      for(let j = 0; j < pile_1.length; j++) { %>
-                        <div class="card value-<%= pile_1[j] %> mr-[5px]"><span><%= pile_1[j] %></span></div>
-                    <% }} %>
-                  </div>
-                </div>
-              </div>
-            <% } %>
+          <div
+            id="opponent-area"
+            class="w-[100%] flex flex-row justify-around min-h-[100px]"
+          ></div>
+          <div class="w-[60%] flex flex-row justify-between mx-auto">
+            <div
+              class="card back"
+              id="draw-pile"
+              data-game-id="<%= gameId %>"
+            ></div>
 
+            <div class="card blank" id="play-pile-n"></div>
+            <div class="card blank" id="play-pile-w"></div>
+            <div class="card blank" id="play-pile-e"></div>
+            <div class="card blank" id="play-pile-s"></div>
           </div>
-          <div class="flex flex-row hand">
-            <% for (let i = 0; i < game.playerHand.length; i++) { %>
-              <div class="card value-<%= game.playerHand[i].value %>">
-                <span><%= game.playerHand[i].value %></span>
-              </div>
-            <% } %>
-          </div>
+          <div
+            id="player-area"
+            class="w-[100%] flex flex-row justify-around"
+          ></div>
         </section>
 
+        <%- include('./templates') %>
         <script src="/js/main.js"></script>
         <div class="basis-2/6"><%- include('../partials/chat') %></div>
         <script src="/js/games.js"></script>
@@ -63,5 +37,3 @@
     </div>
   </body>
 </html>
-
-

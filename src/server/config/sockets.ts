@@ -14,7 +14,7 @@ const bindSession = async (socket: Socket) => {
   } = request.session;
 
   // TODO there's a bug here; if the user has created a game, the game id is not yet parsed from the url parameters
-  socket.join(`game-${roomId}-user-${userId}`);
+  socket.join(`user-${userId}`);
   socket.join(`chat-${roomId}`);
   socket.join(`game-${roomId}`);
 
