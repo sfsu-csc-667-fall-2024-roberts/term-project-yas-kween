@@ -4,7 +4,10 @@ const cardTemplate =
   document.querySelector<HTMLTemplateElement>("#card-template")!;
 
 const BLANK_CARD = cardTemplate.content.cloneNode(true) as HTMLDivElement;
-BLANK_CARD.querySelector("div.card")!.classList.add("blank");
+BLANK_CARD.querySelector("div.card")!.classList.add(
+  "blank",
+  "destination-card",
+);
 
 export const updatePile = (
   pile: number[],
@@ -22,7 +25,9 @@ export const updatePile = (
           true,
         ) as HTMLDivElement;
 
-        cardElement.querySelector("div.card")!.classList.add(`value-${value}`);
+        cardElement
+          .querySelector("div.card")!
+          .classList.add(`value-${value}`, "destination-card");
         cardElement.querySelector("span")!.textContent = getCardValue(value);
 
         return cardElement;

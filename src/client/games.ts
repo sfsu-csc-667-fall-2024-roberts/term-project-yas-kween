@@ -1,3 +1,4 @@
+import { cardClickHandler } from "./games/card-click-handler";
 import { updateGame } from "./games/index";
 
 const gameId = window.location.pathname.split("/").pop();
@@ -15,3 +16,7 @@ document
   .addEventListener("click", () => {
     fetch(`/games/${gameId}/draw`, { method: "POST" });
   });
+
+document
+  .querySelector<HTMLDivElement>("#playing-table")!
+  .addEventListener("click", cardClickHandler);

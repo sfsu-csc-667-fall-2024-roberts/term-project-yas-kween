@@ -13,6 +13,7 @@ export const createPlayerElement = ({
   is_current,
   hand,
   play_pile_top,
+  play_pile_top_id,
   play_pile_count,
   pile_1,
   pile_2,
@@ -43,14 +44,21 @@ export const createPlayerElement = ({
   hand?.forEach((card) => {
     const cardElement = cardTemplate.content.cloneNode(true) as HTMLDivElement;
 
-    cardElement.querySelector("div.card")!.classList.add(`value-${card.value}`);
+    const cardDiv = cardElement.querySelector<HTMLDivElement>("div.card")!;
+    cardDiv.classList.add(`value-${card.value}`, "source-card");
+    cardDiv.dataset.cardId = card.id.toString();
+
     cardElement.querySelector("span")!.textContent = getCardValue(card.value);
 
     handElement.appendChild(cardElement);
   });
 
   const topCard = cardTemplate.content.cloneNode(true) as HTMLDivElement;
-  topCard.querySelector("div.card")!.classList.add(`value-${play_pile_top}`);
+
+  const topCardDiv = topCard.querySelector<HTMLDivElement>("div.card")!;
+  topCardDiv.classList.add(`value-${play_pile_top}`, "source-card");
+  topCardDiv.dataset.cardId = play_pile_top_id.toString();
+
   topCard.querySelector("span")!.textContent = getCardValue(play_pile_top);
 
   playerElement
